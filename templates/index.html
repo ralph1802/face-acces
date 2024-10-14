@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <title>Access</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Site<span class="span">Monitor</span></h1>
+        <video id="mainVideo" autoplay></video>
+        <div id="message" style="display: none;"></div>
+        <button id="openModalBtn">Registrar usuario</button>
+
+        <!-- Modal -->
+        <div id="registerModal" class="modal">
+            <div class="modal-content">
+                <div class="closeBtnContainer">
+                    <span class="closeBtn">&times;</span>
+                </div>
+                <h2>Registrar nuevo usuario</h2>
+                <input type="text" id="fullName" placeholder="Nombre completo" required>
+                <input type="text" id="userId" placeholder="Número de empleado" required>
+                <video id="modalVideo" autoplay></video> 
+                <button id="takePhotoBtn">Tomar foto</button>
+                <div id="successMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
