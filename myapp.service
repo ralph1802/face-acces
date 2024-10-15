@@ -1,0 +1,12 @@
+[Unit]
+Description=Mi Aplicación Flask
+After=network.target
+
+[Service]
+User=ubuntu  # Cambia 'ubuntu' por el usuario que estés usando en el servidor
+WorkingDirectory=/opt/mi_app_flask
+ExecStart=/usr/bin/gunicorn --workers 3 --bind 0.0.0.0:8000 app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
