@@ -13,7 +13,7 @@ navigator.mediaDevices.getUserMedia({ video: true })
         console.error("Error al acceder a la cámara: ", error);
     });
 
-// Función para capturar la imagen y convertirla en base64
+// Función para capturar la imagen
 function captureImage(video) {
     const canvas = document.createElement('canvas');
     canvas.width = video.videoWidth;
@@ -86,12 +86,12 @@ document.getElementById('takePhotoBtn').addEventListener('click', () => {
 // Función para mostrar mensaje de espera
 function showWaitingMessage() {
     messageDisplay.innerText = "Esperando detección...";
-    messageDisplay.style.display = 'block'; // Asegúrate de mostrar el mensaje
+    messageDisplay.style.display = 'block';
 }
 
-// Detectar cara continuamente cada segundo
+// Detectar cara continuamente
 function detectFace() {
-    showWaitingMessage(); // Mostrar mensaje de espera al inicio
+    showWaitingMessage();
     const imageData = captureImage(mainVideo);
 
     fetch('/detect', {
@@ -111,21 +111,21 @@ function detectFace() {
     })
     .then(data => {
         if (data.message) {
-            messageDisplay.innerText = data.message; // Mostrar el mensaje de reconocimiento
+            messageDisplay.innerText = data.message;
         } else {
-            messageDisplay.innerText = "Esperando detección..."; // Reestablecer mensaje de espera si no hay detección
+            messageDisplay.innerText = "Esperando detección...";
         }
-        messageDisplay.style.display = 'block'; // Asegúrate de mostrar el mensaje
-        setTimeout(detectFace, 1000); // Vuelve a detectar después de 1 segundo
+        messageDisplay.style.display = 'block';
+        setTimeout(detectFace, 1000);
     })
     .catch(error => {
         console.error("Error al detectar la cara: ", error);
-        messageDisplay.innerText = "Error al detectar la cara."; // Mostrar mensaje de error
-        messageDisplay.style.display = 'block'; // Asegúrate de mostrar el mensaje
+        messageDisplay.innerText = "Error al detectar la cara.";
+        messageDisplay.style.display = 'block';
         setTimeout(() => {
-            messageDisplay.style.display = 'none'; // Oculta el mensaje después de 3 segundos
+            messageDisplay.style.display = 'none';
         }, 3000);
-        setTimeout(detectFace, 1000); // Intenta detectar de nuevo después de 1 segundo
+        setTimeout(detectFace, 1000);
     });
 }
 

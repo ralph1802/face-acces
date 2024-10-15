@@ -49,12 +49,12 @@ def register():
     user_id = data['user_id']
     image_data = data['image_data']
 
-    # Decodificar la imagen base64
-    image_data = image_data.split(',')[1]  # Extraer la parte base64
+    # Decodificar la imagen
+    image_data = image_data.split(',')[1]
     image = base64.b64decode(image_data)
     image_path = f'stored_images/{user_id}.jpg'
 
-    # Guardar la imagen en el sistema de archivos
+    # Guardar la imagen
     with open(image_path, 'wb') as f:
         f.write(image)
 
@@ -68,12 +68,12 @@ def detect():
         data = request.get_json()
         image_data = data['image_data']
         
-        # Decodificar la imagen base64
-        image_data = image_data.split(',')[1]  # Extraer la parte base64
+        # Decodificar la imagen
+        image_data = image_data.split(',')[1]
         image = base64.b64decode(image_data)
         image_path = 'temp_image.jpg'
 
-        # Guardar la imagen temporalmente para la detección
+        # Guardar la imagen temporalmente
         with open(image_path, 'wb') as f:
             f.write(image)
 
@@ -90,7 +90,7 @@ def detect():
         else:
             return jsonify({'message': 'No se reconoció al usuario.'})
     except Exception as e:
-        return jsonify({'error': str(e)}), 500  # Retorna un error JSON
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
