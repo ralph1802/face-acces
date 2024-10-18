@@ -1,9 +1,19 @@
+// --------------------
+// Selección de Elementos DOM
+// --------------------
 const mainVideo = document.querySelector("#mainVideo");
 const modalVideo = document.querySelector("#modalVideo");
-const messageDisplay = document.getElementById('message');
+const waitingMessage = document.getElementById('waitingMessage');
+const recognitionMessage = document.getElementById('recognitionMessage');
+const errorMessage = document.getElementById('errorMessage');
 const successMessage = document.getElementById('successMessage');
+const modal = document.getElementById("registerModal");
+const openModalBtn = document.getElementById("openModalBtn");
+const closeBtn = document.getElementsByClassName("closeBtn")[0];
 
-// Solicitar acceso a la cámara
+// --------------------
+// Sección de Acceso a la Cámara
+// --------------------
 navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
         mainVideo.srcObject = stream;
@@ -13,7 +23,9 @@ navigator.mediaDevices.getUserMedia({ video: true })
         console.error("Error al acceder a la cámara: ", error);
     });
 
-// Función para capturar la imagen
+// --------------------
+// Sección de Captura de Imagen
+// --------------------
 function captureImage(video) {
     const canvas = document.createElement('canvas');
     canvas.width = video.videoWidth;
@@ -23,11 +35,9 @@ function captureImage(video) {
     return canvas.toDataURL('image/jpeg');
 }
 
-// Abrir y cerrar el modal
-const modal = document.getElementById("registerModal");
-const openModalBtn = document.getElementById("openModalBtn");
-const closeBtn = document.getElementsByClassName("closeBtn")[0];
-
+// --------------------
+// Sección de Modal
+// --------------------
 openModalBtn.onclick = function() {
     modal.style.display = "flex";
     mainVideo.pause(); 
@@ -45,13 +55,15 @@ window.onclick = function(event) {
     }
 }
 
-// Registrar usuario
+// --------------------
+// Sección de Registro de Usuario
+// --------------------
 document.getElementById('takePhotoBtn').addEventListener('click', () => {
     const userId = document.getElementById('userId').value;
     const fullName = document.getElementById('fullName').value;
 
     if (!userId || !fullName) {
-        alert("Por favor, ingresa el ID y nombre completo.");
+        alert("Por favor, ingresa matricula y nombre completo.");
         return;
     }
 
@@ -83,13 +95,47 @@ document.getElementById('takePhotoBtn').addEventListener('click', () => {
     });
 });
 
-// Función para mostrar mensaje de espera
-function showWaitingMessage() {
-    messageDisplay.innerText = "Esperando detección...";
-    messageDisplay.style.display = 'block';
+// --------------------
+// Sección de Mensajes
+// --------------------
+function hideAllMessages() {
+    waitingMessage.style.display = 'none';
+    recognitionMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
 }
 
-// Detectar cara continuamente
+// mensaje de espera
+function showWaitingMessage() {
+    hideAllMessages();
+    waitingMessage.innerText = "Buscando rostro";
+    waitingMessage.style.display = 'block';
+}
+
+// mensaje de reconocimiento
+function showRecognitionMessage(userId) {
+    hideAllMessages();
+    recognitionMessage.innerText = `Asistencia registrada: ${userId}`;
+    recognitionMessage.style.display = 'block';
+    
+    setTimeout(() => {
+        recognitionMessage.style.display = 'none';
+    }, 5000);
+}
+
+// mensaje de error
+function showErrorMessage(errorText) {
+    hideAllMessages();
+    errorMessage.innerText = errorText;
+    errorMessage.style.display = 'block';
+
+    setTimeout(() => {
+        errorMessage.style.display = 'none';
+    }, 3000);
+}
+
+// --------------------
+// Sección de Detección de Cara
+// --------------------
 function detectFace() {
     showWaitingMessage();
     const imageData = captureImage(mainVideo);
@@ -111,21 +157,23 @@ function detectFace() {
     })
     .then(data => {
         if (data.message) {
-            messageDisplay.innerText = data.message;
+            if (data.message.includes('Asistencia registrada:')) {
+                const userId = data.message.split(': ')[1].trim();
+                showRecognitionMessage(userId);
+            } else if (data.message === 'Alumno no reconocido') {
+                showErrorMessage('No se reconoció al usuario');
+            }
         } else {
-            messageDisplay.innerText = "Esperando detección...";
+            showWaitingMessage();
         }
-        messageDisplay.style.display = 'block';
         setTimeout(detectFace, 1000);
     })
     .catch(error => {
         console.error("Error al detectar la cara: ", error);
-        messageDisplay.innerText = "Error al detectar la cara.";
-        messageDisplay.style.display = 'block';
+        showErrorMessage('Error al detectar la cara');
         setTimeout(() => {
-            messageDisplay.style.display = 'none';
-        }, 3000);
-        setTimeout(detectFace, 1000);
+            detectFace();
+        }, 1000);
     });
 }
 

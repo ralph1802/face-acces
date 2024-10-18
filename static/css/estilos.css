@@ -3,57 +3,124 @@
     padding: 0;
 }
 body {
-   background: #1b1b1b;
-   color: #FFF;
+   background: #FFF;
+   color: #000;
    font-family: "Inter";
    padding: 20px;
 }
 
-.container {
+/* ----------------- PANTALLA HOME --------------------- */
+.home-container {
     display: flex;
     flex-direction: column;
     gap: 10px;
     text-align: center;
     width: 70%;
+    height: 100vh;
     margin: auto;
     align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
-.container h1 {
+.home-container h1 {
+    font-size: 46px;
+    font-weight: 800;
+}
+
+.home-container p {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* ----------------- PANTALLA DE VIDEO --------------------- */
+.video-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    width: 70%;
+    height: 100vh;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.video-container h1 {
     font-size: 24px;
     font-weight: 500;
 }
 
-.container h1 .span {
+.video-container h1 .span {
     color: #1976D2;
 }
 
 video {
+    width: 100%;
     border-radius: 10px;
 }
 
+
+/* ----------------- BOTONES --------------------- */
 button {
-    width: fit-content;
-    padding: 10px 15px;
+    width: 200px;
+    height: 40px;
     border-radius: 10px;
     border-style: none;
     color: #FFF;
-    background: #1976D2;
+    background: #FF0224;
     cursor: pointer;
     user-select: none;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 button:hover {
-    background: #1976d2da;
+    background: #e0011f;
 }
 
 button:active {
-    background: #1976d29a;
+    background: #aa0017;
+}
+
+/* ----------------- MENSAJES --------------------- */
+.successMessage,
+.waitingMessage {
+    background: rgba(128, 128, 128, 0.5);
+    color: #000;
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.recognitionMessage {
+    background: rgba(0, 128, 0, 0.5);
+    color: #FFF;
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.errorMessage {
+    background: #d21919;
+    color: #FFF;
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 
-
-/* modal */
+/* ----------------- MODAL --------------------- */
 .modal {
     display: none; 
     position: fixed;

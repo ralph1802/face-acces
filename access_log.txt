@@ -1,6 +1,11 @@
-2024-10-15 08:56:42.591870: 16826 - Entrada registrada
-2024-10-15 08:56:51.102902: 16826 - Entrada registrada
-2024-10-15 08:56:54.546073: 16826 - Entrada registrada
-2024-10-15 08:56:56.575650: 16826 - Entrada registrada
-2024-10-15 08:57:11.495767: 16826 - Entrada registrada
-2024-10-15 08:57:13.252457: 16826 - Entrada registrada
+2024-10-18 16:02:24.940743: 1802 - Entrada registrada
+2024-10-18 16:02:31.990157: 1802 - Entrada registrada
+2024-10-18 16:02:39.473377: 1802 - Entrada registrada
+2024-10-18 16:02:51.668794: 1802 - Entrada registrada
+2024-10-18 16:02:55.885158: 1802 - Entrada registrada
+2024-10-18 16:03:04.702711: 1802 - Entrada registrada
+2024-10-18 16:03:11.719945: 1802 - Entrada registrada
+2024-10-18 16:03:18.967572: 1802 - Entrada registrada
+2024-10-18 16:03:26.130790: 1802 - Entrada registrada
+2024-10-18 16:03:33.223844: 1802 - Entrada registrada
+2024-10-18 16:03:45.464556: 1802 - Entrada registrada

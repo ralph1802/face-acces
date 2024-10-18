@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <title>Video</title>
+    <script>
+        let inactivityTime = 0;
+        const resetInactivityTimer = () => {
+            inactivityTime = 0;
+        };
+
+        const checkInactivity = () => {
+            inactivityTime++;
+            if (inactivityTime >= 10) {
+                window.location.href = '/';
+            }
+        };
+
+        window.onload = () => {
+            document.body.addEventListener('mousemove', resetInactivityTimer);
+            document.body.addEventListener('keypress', resetInactivityTimer);
+            setInterval(checkInactivity, 2000);
+        };
+    </script>
+</head>
+<body>
+    <div class="video-container">
+        <video id="mainVideo" autoplay></video>
+        
+        <!-- Mensajes individuales -->
+        <div id="waitingMessage" class="waitingMessage" style="display: none;">Esperando detección...</div>
+        <div id="recognitionMessage" class="recognitionMessage" style="display: none;"></div>
+        <div id="errorMessage" class="errorMessage" style="display: none;"></div>
+        
+        <button id="openModalBtn">Registrar alumno</button>
+
+        <!-- Modal -->
+        <div id="registerModal" class="modal">
+            <div class="modal-content">
+                <div class="closeBtnContainer">
+                    <span class="closeBtn">&times;</span>
+                </div>
+                <input type="text" id="fullName" placeholder="Nombre completo" required>
+                <input type="text" id="userId" placeholder="Matrícula" required>
+                <video id="modalVideo" autoplay></video> 
+                <button id="takePhotoBtn">Tomar foto</button>
+                <div id="successMessage" class="successMessage" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
